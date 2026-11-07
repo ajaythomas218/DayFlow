@@ -37,18 +37,23 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       user_settings: {
         Row: {
           user_id: string
           default_task_duration_minutes: number
           auto_sync_tasks_to_calendar: boolean
+          auto_sync_events_to_calendar: boolean
           default_calendar_id: string | null
           week_start_day: number
           theme_preference: 'dark' | 'light' | 'system'
           notification_web_push: boolean
           notification_in_app: boolean
           notification_email: boolean
+          task_default_reminders: Json
+          event_default_reminders: Json
+          reminders_enabled_by_default: boolean
           created_at: string
           updated_at: string
         }
@@ -56,12 +61,16 @@ export interface Database {
           user_id: string
           default_task_duration_minutes?: number
           auto_sync_tasks_to_calendar?: boolean
+          auto_sync_events_to_calendar?: boolean
           default_calendar_id?: string | null
           week_start_day?: number
           theme_preference?: 'dark' | 'light' | 'system'
           notification_web_push?: boolean
           notification_in_app?: boolean
           notification_email?: boolean
+          task_default_reminders?: Json
+          event_default_reminders?: Json
+          reminders_enabled_by_default?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -69,15 +78,20 @@ export interface Database {
           user_id?: string
           default_task_duration_minutes?: number
           auto_sync_tasks_to_calendar?: boolean
+          auto_sync_events_to_calendar?: boolean
           default_calendar_id?: string | null
           week_start_day?: number
           theme_preference?: 'dark' | 'light' | 'system'
           notification_web_push?: boolean
           notification_in_app?: boolean
           notification_email?: boolean
+          task_default_reminders?: Json
+          event_default_reminders?: Json
+          reminders_enabled_by_default?: boolean
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       projects: {
         Row: {
@@ -116,6 +130,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       tasks: {
         Row: {
@@ -133,6 +148,10 @@ export interface Database {
           is_time_blocked: boolean
           recurrence_rule: string | null
           recurrence_parent_id: string | null
+          sync_with_google: boolean | null
+          course_id: string | null
+          training_session_id: string | null
+          checklist_template_task_id: string | null
           estimated_duration_minutes: number | null
           completed_at: string | null
           sort_order: number
@@ -154,6 +173,10 @@ export interface Database {
           is_time_blocked?: boolean
           recurrence_rule?: string | null
           recurrence_parent_id?: string | null
+          sync_with_google?: boolean | null
+          course_id?: string | null
+          training_session_id?: string | null
+          checklist_template_task_id?: string | null
           estimated_duration_minutes?: number | null
           completed_at?: string | null
           sort_order?: number
@@ -175,12 +198,17 @@ export interface Database {
           is_time_blocked?: boolean
           recurrence_rule?: string | null
           recurrence_parent_id?: string | null
+          sync_with_google?: boolean | null
+          course_id?: string | null
+          training_session_id?: string | null
+          checklist_template_task_id?: string | null
           estimated_duration_minutes?: number | null
           completed_at?: string | null
           sort_order?: number
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       task_dependencies: {
         Row: {
@@ -204,6 +232,7 @@ export interface Database {
           dependent_task_id?: string
           created_at?: string
         }
+        Relationships: []
       }
       task_reschedule_history: {
         Row: {
@@ -239,6 +268,7 @@ export interface Database {
           reason?: string | null
           rescheduled_at?: string
         }
+        Relationships: []
       }
       calendar_events: {
         Row: {
@@ -254,6 +284,10 @@ export interface Database {
           meeting_url: string | null
           attendees: Json
           recurrence_rule: string | null
+          recurrence_parent_id: string | null
+          sync_with_google: boolean | null
+          project_id: string | null
+          task_id: string | null
           created_at: string
           updated_at: string
         }
@@ -270,6 +304,10 @@ export interface Database {
           meeting_url?: string | null
           attendees?: Json
           recurrence_rule?: string | null
+          recurrence_parent_id?: string | null
+          sync_with_google?: boolean | null
+          project_id?: string | null
+          task_id?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -286,9 +324,14 @@ export interface Database {
           meeting_url?: string | null
           attendees?: Json
           recurrence_rule?: string | null
+          recurrence_parent_id?: string | null
+          sync_with_google?: boolean | null
+          project_id?: string | null
+          task_id?: string | null
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       calendar_connections: {
         Row: {
@@ -330,6 +373,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       calendar_event_mappings: {
         Row: {
@@ -343,6 +387,7 @@ export interface Database {
           etag: string | null
           sync_direction: 'bidirectional' | 'push_only' | 'pull_only'
           last_synced_at: string
+          remote_updated_at: string | null
           sync_status: 'synced' | 'pending_push' | 'pending_pull' | 'conflict' | 'orphaned'
         }
         Insert: {
@@ -356,6 +401,7 @@ export interface Database {
           etag?: string | null
           sync_direction?: 'bidirectional' | 'push_only' | 'pull_only'
           last_synced_at?: string
+          remote_updated_at?: string | null
           sync_status?: 'synced' | 'pending_push' | 'pending_pull' | 'conflict' | 'orphaned'
         }
         Update: {
@@ -369,8 +415,10 @@ export interface Database {
           etag?: string | null
           sync_direction?: 'bidirectional' | 'push_only' | 'pull_only'
           last_synced_at?: string
+          remote_updated_at?: string | null
           sync_status?: 'synced' | 'pending_push' | 'pending_pull' | 'conflict' | 'orphaned'
         }
+        Relationships: []
       }
       calendar_sync_state: {
         Row: {
@@ -381,6 +429,11 @@ export interface Database {
           channel_id: string | null
           resource_id: string | null
           channel_expiration: string | null
+          sync_status: 'idle' | 'syncing' | 'error'
+          sync_started_at: string | null
+          last_pushed_count: number
+          last_pulled_count: number
+          last_conflict_count: number
           last_successful_sync: string | null
           last_error_message: string | null
           updated_at: string
@@ -393,6 +446,11 @@ export interface Database {
           channel_id?: string | null
           resource_id?: string | null
           channel_expiration?: string | null
+          sync_status?: 'idle' | 'syncing' | 'error'
+          sync_started_at?: string | null
+          last_pushed_count?: number
+          last_pulled_count?: number
+          last_conflict_count?: number
           last_successful_sync?: string | null
           last_error_message?: string | null
           updated_at?: string
@@ -405,10 +463,16 @@ export interface Database {
           channel_id?: string | null
           resource_id?: string | null
           channel_expiration?: string | null
+          sync_status?: 'idle' | 'syncing' | 'error'
+          sync_started_at?: string | null
+          last_pushed_count?: number
+          last_pulled_count?: number
+          last_conflict_count?: number
           last_successful_sync?: string | null
           last_error_message?: string | null
           updated_at?: string
         }
+        Relationships: []
       }
       reminder_rules: {
         Row: {
@@ -418,7 +482,7 @@ export interface Database {
           calendar_event_id: string | null
           offset_minutes: number
           is_relative_to_start: boolean
-          channel: 'in_app' | 'web_push' | 'google_calendar'
+          channel: 'in_app' | 'web_push' | 'email' | 'google_calendar'
           is_active: boolean
           created_at: string
         }
@@ -429,7 +493,7 @@ export interface Database {
           calendar_event_id?: string | null
           offset_minutes: number
           is_relative_to_start?: boolean
-          channel?: 'in_app' | 'web_push' | 'google_calendar'
+          channel?: 'in_app' | 'web_push' | 'email' | 'google_calendar'
           is_active?: boolean
           created_at?: string
         }
@@ -440,18 +504,27 @@ export interface Database {
           calendar_event_id?: string | null
           offset_minutes?: number
           is_relative_to_start?: boolean
-          channel?: 'in_app' | 'web_push' | 'google_calendar'
+          channel?: 'in_app' | 'web_push' | 'email' | 'google_calendar'
           is_active?: boolean
           created_at?: string
         }
+        Relationships: []
       }
       reminder_deliveries: {
         Row: {
           id: string
           user_id: string
           reminder_rule_id: string
+          task_id: string | null
+          calendar_event_id: string | null
           scheduled_for: string
-          status: 'scheduled' | 'sent' | 'failed' | 'cancelled' | 'dismissed'
+          status: 'scheduled' | 'pending' | 'processing' | 'sent' | 'failed' | 'cancelled' | 'dismissed'
+          attempt_count: number
+          max_attempts: number
+          last_attempt_at: string | null
+          next_retry_at: string | null
+          title: string | null
+          body: string | null
           sent_at: string | null
           error_message: string | null
           idempotency_key: string
@@ -461,8 +534,16 @@ export interface Database {
           id?: string
           user_id: string
           reminder_rule_id: string
+          task_id?: string | null
+          calendar_event_id?: string | null
           scheduled_for: string
-          status?: 'scheduled' | 'sent' | 'failed' | 'cancelled' | 'dismissed'
+          status?: 'scheduled' | 'pending' | 'processing' | 'sent' | 'failed' | 'cancelled' | 'dismissed'
+          attempt_count?: number
+          max_attempts?: number
+          last_attempt_at?: string | null
+          next_retry_at?: string | null
+          title?: string | null
+          body?: string | null
           sent_at?: string | null
           error_message?: string | null
           idempotency_key: string
@@ -472,13 +553,22 @@ export interface Database {
           id?: string
           user_id?: string
           reminder_rule_id?: string
+          task_id?: string | null
+          calendar_event_id?: string | null
           scheduled_for?: string
-          status?: 'scheduled' | 'sent' | 'failed' | 'cancelled' | 'dismissed'
+          status?: 'scheduled' | 'pending' | 'processing' | 'sent' | 'failed' | 'cancelled' | 'dismissed'
+          attempt_count?: number
+          max_attempts?: number
+          last_attempt_at?: string | null
+          next_retry_at?: string | null
+          title?: string | null
+          body?: string | null
           sent_at?: string | null
           error_message?: string | null
           idempotency_key?: string
           created_at?: string
         }
+        Relationships: []
       }
       diary_entries: {
         Row: {
@@ -486,7 +576,12 @@ export interface Database {
           user_id: string
           entry_date: string
           morning_intentions: string | null
+          journal_content: string | null
           evening_reflection: string | null
+          wins: string | null
+          challenges: string | null
+          lessons_learned: string | null
+          tomorrow_plan: string | null
           energy_level: number | null
           mood_rating: number | null
           created_at: string
@@ -497,7 +592,12 @@ export interface Database {
           user_id: string
           entry_date: string
           morning_intentions?: string | null
+          journal_content?: string | null
           evening_reflection?: string | null
+          wins?: string | null
+          challenges?: string | null
+          lessons_learned?: string | null
+          tomorrow_plan?: string | null
           energy_level?: number | null
           mood_rating?: number | null
           created_at?: string
@@ -508,12 +608,18 @@ export interface Database {
           user_id?: string
           entry_date?: string
           morning_intentions?: string | null
+          journal_content?: string | null
           evening_reflection?: string | null
+          wins?: string | null
+          challenges?: string | null
+          lessons_learned?: string | null
+          tomorrow_plan?: string | null
           energy_level?: number | null
           mood_rating?: number | null
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       diary_task_links: {
         Row: {
@@ -543,6 +649,7 @@ export interface Database {
           sort_order?: number
           created_at?: string
         }
+        Relationships: []
       }
       training_courses: {
         Row: {
@@ -550,9 +657,13 @@ export interface Database {
           user_id: string
           title: string
           description: string | null
+          provider: string | null
           category: string | null
           target_hours: number | null
-          status: 'active' | 'completed' | 'archived'
+          status: 'planned' | 'active' | 'paused' | 'completed' | 'archived'
+          start_date: string | null
+          end_date: string | null
+          personal_notes: string | null
           created_at: string
           updated_at: string
         }
@@ -561,9 +672,13 @@ export interface Database {
           user_id: string
           title: string
           description?: string | null
+          provider?: string | null
           category?: string | null
           target_hours?: number | null
-          status?: 'active' | 'completed' | 'archived'
+          status?: 'planned' | 'active' | 'paused' | 'completed' | 'archived'
+          start_date?: string | null
+          end_date?: string | null
+          personal_notes?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -572,12 +687,17 @@ export interface Database {
           user_id?: string
           title?: string
           description?: string | null
+          provider?: string | null
           category?: string | null
           target_hours?: number | null
-          status?: 'active' | 'completed' | 'archived'
+          status?: 'planned' | 'active' | 'paused' | 'completed' | 'archived'
+          start_date?: string | null
+          end_date?: string | null
+          personal_notes?: string | null
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       training_templates: {
         Row: {
@@ -585,6 +705,7 @@ export interface Database {
           course_id: string
           template_name: string
           description: string | null
+          is_archived: boolean
           created_at: string
           updated_at: string
         }
@@ -593,6 +714,7 @@ export interface Database {
           course_id: string
           template_name: string
           description?: string | null
+          is_archived?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -601,9 +723,11 @@ export interface Database {
           course_id?: string
           template_name?: string
           description?: string | null
+          is_archived?: boolean
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       training_template_tasks: {
         Row: {
@@ -613,6 +737,9 @@ export interface Database {
           estimated_duration_minutes: number
           sort_order: number
           is_mandatory: boolean
+          due_offset_days: number
+          relative_to: string
+          is_archived: boolean
           created_at: string
         }
         Insert: {
@@ -622,6 +749,9 @@ export interface Database {
           estimated_duration_minutes?: number
           sort_order?: number
           is_mandatory?: boolean
+          due_offset_days?: number
+          relative_to?: string
+          is_archived?: boolean
           created_at?: string
         }
         Update: {
@@ -631,8 +761,12 @@ export interface Database {
           estimated_duration_minutes?: number
           sort_order?: number
           is_mandatory?: boolean
+          due_offset_days?: number
+          relative_to?: string
+          is_archived?: boolean
           created_at?: string
         }
+        Relationships: []
       }
       training_sessions: {
         Row: {
@@ -641,6 +775,11 @@ export interface Database {
           template_id: string | null
           session_title: string
           scheduled_start: string
+          scheduled_end: string | null
+          timezone: string
+          location: string | null
+          meeting_url: string | null
+          calendar_event_id: string | null
           actual_duration_minutes: number | null
           status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled'
           notes: string | null
@@ -653,6 +792,11 @@ export interface Database {
           template_id?: string | null
           session_title: string
           scheduled_start: string
+          scheduled_end?: string | null
+          timezone?: string
+          location?: string | null
+          meeting_url?: string | null
+          calendar_event_id?: string | null
           actual_duration_minutes?: number | null
           status?: 'scheduled' | 'in_progress' | 'completed' | 'cancelled'
           notes?: string | null
@@ -665,12 +809,18 @@ export interface Database {
           template_id?: string | null
           session_title?: string
           scheduled_start?: string
+          scheduled_end?: string | null
+          timezone?: string
+          location?: string | null
+          meeting_url?: string | null
+          calendar_event_id?: string | null
           actual_duration_minutes?: number | null
           status?: 'scheduled' | 'in_progress' | 'completed' | 'cancelled'
           notes?: string | null
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       student_reviews: {
         Row: {
@@ -679,9 +829,11 @@ export interface Database {
           student_identifier: string
           assignment_title: string
           submission_date: string
-          status: 'pending' | 'in_review' | 'completed' | 'needs_follow_up'
+          status: 'awaiting_review' | 'in_review' | 'feedback_ready' | 'completed' | 'pending' | 'needs_follow_up'
           feedback_notes: string | null
           score_or_grade: string | null
+          course_id: string | null
+          reviewed_at: string | null
           follow_up_due_at: string | null
           follow_up_task_id: string | null
           external_risk_check_prompted: boolean
@@ -695,9 +847,11 @@ export interface Database {
           student_identifier: string
           assignment_title: string
           submission_date: string
-          status?: 'pending' | 'in_review' | 'completed' | 'needs_follow_up'
+          status?: 'awaiting_review' | 'in_review' | 'feedback_ready' | 'completed' | 'pending' | 'needs_follow_up'
           feedback_notes?: string | null
           score_or_grade?: string | null
+          course_id?: string | null
+          reviewed_at?: string | null
           follow_up_due_at?: string | null
           follow_up_task_id?: string | null
           external_risk_check_prompted?: boolean
@@ -711,9 +865,11 @@ export interface Database {
           student_identifier?: string
           assignment_title?: string
           submission_date?: string
-          status?: 'pending' | 'in_review' | 'completed' | 'needs_follow_up'
+          status?: 'awaiting_review' | 'in_review' | 'feedback_ready' | 'completed' | 'pending' | 'needs_follow_up'
           feedback_notes?: string | null
           score_or_grade?: string | null
+          course_id?: string | null
+          reviewed_at?: string | null
           follow_up_due_at?: string | null
           follow_up_task_id?: string | null
           external_risk_check_prompted?: boolean
@@ -721,6 +877,7 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
       activity_logs: {
         Row: {
@@ -750,6 +907,7 @@ export interface Database {
           metadata?: Json
           created_at?: string
         }
+        Relationships: []
       }
       background_jobs: {
         Row: {
@@ -788,7 +946,59 @@ export interface Database {
           created_at?: string
           updated_at?: string
         }
+        Relationships: []
       }
+      weekly_reviews: {
+        Row: {
+          id: string
+          user_id: string
+          week_start_date: string
+          reflection_content: string | null
+          wins: string | null
+          challenges: string | null
+          lessons_learned: string | null
+          next_week_priorities: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          week_start_date: string
+          reflection_content?: string | null
+          wins?: string | null
+          challenges?: string | null
+          lessons_learned?: string | null
+          next_week_priorities?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          week_start_date?: string
+          reflection_content?: string | null
+          wins?: string | null
+          challenges?: string | null
+          lessons_learned?: string | null
+          next_week_priorities?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
     }
   }
 }

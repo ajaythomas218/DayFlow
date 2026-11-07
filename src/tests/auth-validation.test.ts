@@ -5,7 +5,7 @@ describe('Auth Validation Schemas', () => {
   describe('loginSchema', () => {
     it('accepts valid credentials', () => {
       const valid = loginSchema.safeParse({
-        email: 'user@workday.io',
+        email: 'user@dayflow.app',
         password: 'Password123!',
       })
       expect(valid.success).toBe(true)
@@ -24,7 +24,7 @@ describe('Auth Validation Schemas', () => {
 
     it('rejects empty password', () => {
       const invalid = loginSchema.safeParse({
-        email: 'user@workday.io',
+        email: 'user@dayflow.app',
         password: '',
       })
       expect(invalid.success).toBe(false)
@@ -32,7 +32,7 @@ describe('Auth Validation Schemas', () => {
 
     it('rejects passwords shorter than 6 characters', () => {
       const invalid = loginSchema.safeParse({
-        email: 'user@workday.io',
+        email: 'user@dayflow.app',
         password: '123',
       })
       expect(invalid.success).toBe(false)
@@ -46,7 +46,7 @@ describe('Auth Validation Schemas', () => {
     it('accepts valid registration input', () => {
       const valid = registerSchema.safeParse({
         fullName: 'Alex Architect',
-        email: 'alex@workday.io',
+        email: 'alex@dayflow.app',
         password: 'SecurePassword1',
         confirmPassword: 'SecurePassword1',
         timezone: 'America/New_York',
@@ -57,7 +57,7 @@ describe('Auth Validation Schemas', () => {
     it('rejects mismatched password and confirmPassword', () => {
       const invalid = registerSchema.safeParse({
         fullName: 'Alex Architect',
-        email: 'alex@workday.io',
+        email: 'alex@dayflow.app',
         password: 'SecurePassword1',
         confirmPassword: 'DifferentPassword2',
         timezone: 'America/New_York',
@@ -71,7 +71,7 @@ describe('Auth Validation Schemas', () => {
     it('rejects passwords missing uppercase letters', () => {
       const invalid = registerSchema.safeParse({
         fullName: 'Alex Architect',
-        email: 'alex@workday.io',
+        email: 'alex@dayflow.app',
         password: 'lowercaseonly123',
         confirmPassword: 'lowercaseonly123',
         timezone: 'UTC',
@@ -85,7 +85,7 @@ describe('Auth Validation Schemas', () => {
     it('rejects passwords missing digits', () => {
       const invalid = registerSchema.safeParse({
         fullName: 'Alex Architect',
-        email: 'alex@workday.io',
+        email: 'alex@dayflow.app',
         password: 'NoNumbersHereAtAll',
         confirmPassword: 'NoNumbersHereAtAll',
         timezone: 'UTC',

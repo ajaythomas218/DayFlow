@@ -1,25 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  /* Surface & Canvas Tokens */
-  --bg-canvas: #101522;
-  --bg-surface-subtle: #141B2D;
-  --bg-surface: #182238;
-  --bg-surface-elevated: #1F2D4A;
-  --bg-glass: rgba(24, 34, 56, 0.75);
+  /* DayFlow Surface & Canvas Tokens */
+  --bg-canvas: #0F172A; /* Midnight Navy Foundation */
+  --bg-surface-subtle: #162032;
+  --bg-surface: #1E293B;
+  --bg-surface-elevated: #334155;
+  --bg-glass: rgba(15, 23, 42, 0.78);
 
   /* Border Tokens */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-default: rgba(255, 255, 255, 0.10);
-  --border-focus: #8B7CFF;
-  --border-glass: rgba(255, 255, 255, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.12);
+  --border-focus: #7C3AED;
+  --border-glass: rgba(255, 255, 255, 0.14);
 
-  /* Brand Accents */
-  --accent-violet: #8B7CFF;
-  --accent-violet-hover: #9E91FF;
-  --accent-violet-glow: rgba(139, 124, 255, 0.25);
-  --accent-cyan: #22D3EE;
-  --accent-cyan-hover: #38BDF8;
+  /* DayFlow Brand Accents */
+  --accent-violet: #7C3AED; /* Primary Brand Accent */
+  --accent-violet-hover: #8B5CF6;
+  --accent-violet-glow: rgba(124, 58, 237, 0.28);
+  --accent-cyan: #06B6D4; /* Secondary Brand Accent */
+  --accent-cyan-hover: #22D3EE;
+  --accent-lavender: #EDE9FE; /* Light Accent / Surface */
 
   /* Semantic Status Tokens */
   --status-success: #34D399;
@@ -28,11 +29,11 @@
   --status-warning-bg: rgba(251, 191, 36, 0.12);
   --status-danger: #F87171;
   --status-danger-bg: rgba(248, 113, 113, 0.12);
-  --status-info: #38BDF8;
-  --status-info-bg: rgba(56, 189, 248, 0.12);
+  --status-info: #06B6D4;
+  --status-info-bg: rgba(6, 182, 212, 0.12);
 
   /* Typography Colors */
-  --text-primary: #F8FAFC;
+  --text-primary: #FFFFFF; /* Primary text on dark surfaces */
   --text-secondary: #94A3B8;
   --text-tertiary: #64748B;
   --text-disabled: #475569;
@@ -48,6 +49,8 @@
   --color-accent-violet: var(--accent-violet);
   --color-accent-violet-hover: var(--accent-violet-hover);
   --color-accent-cyan: var(--accent-cyan);
+  --color-accent-cyan-hover: var(--accent-cyan-hover);
+  --color-accent-lavender: var(--accent-lavender);
 
   --color-status-success: var(--status-success);
   --color-status-warning: var(--status-warning);
@@ -59,7 +62,7 @@
   --color-text-tertiary: var(--text-tertiary);
   --color-text-disabled: var(--text-disabled);
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-sans: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -76,31 +79,31 @@ body {
 /* Glassmorphism Utilities */
 .glass-panel {
   background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-glass);
 }
 
 .glass-card {
-  background: rgba(24, 34, 56, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--border-subtle);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(139, 124, 255, 0.3);
-  box-shadow: 0 4px 20px -2px rgba(139, 124, 255, 0.15);
+  border-color: rgba(124, 58, 237, 0.35);
+  box-shadow: 0 4px 20px -2px rgba(124, 58, 237, 0.18);
 }
 
-/* Subtle Glow Effects */
+/* DayFlow Subtle Glow Effects */
 .glow-violet {
   box-shadow: 0 0 25px -4px var(--accent-violet-glow);
 }
 
 .glow-cyan {
-  box-shadow: 0 0 25px -4px rgba(34, 211, 238, 0.25);
+  box-shadow: 0 0 25px -4px rgba(6, 182, 212, 0.25);
 }
 
 /* Reduced Motion Override */

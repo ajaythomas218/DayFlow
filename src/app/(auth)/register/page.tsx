@@ -3,7 +3,8 @@
 import React, { useState, useTransition } from 'react'
 import Link from 'next/link'
 import { registerAction } from '@/lib/actions/auth'
-import { Sparkles, Eye, EyeOff, AlertCircle, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react'
+import { Eye, EyeOff, AlertCircle, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react'
+import { DayFlowLogo } from '@/components/brand/dayflow-logo'
 
 export default function RegisterPage() {
   const [error, setError] = useState<string | null>(null)
@@ -38,13 +39,11 @@ export default function RegisterPage() {
     <div className="glass-panel rounded-2xl p-8 border border-white/10 shadow-2xl backdrop-blur-xl">
       {/* Brand Header */}
       <div className="flex flex-col items-center text-center mb-8">
-        <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-[#8B7CFF] to-[#22D3EE] p-[1px] mb-4 glow-violet">
-          <div className="w-full h-full bg-[#141B2D] rounded-[11px] flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-[#8B7CFF]" />
-          </div>
-        </div>
+        <Link href="/" className="mb-3 hover:opacity-95 transition-opacity">
+          <DayFlowLogo variant="app-icon" size={56} />
+        </Link>
         <h1 className="text-2xl font-bold tracking-tight text-white">Create Account</h1>
-        <p className="text-sm text-slate-400 mt-1">Initialize your Workday OS workspace</p>
+        <p className="text-sm text-slate-400 mt-1">Initialize your DayFlow workspace</p>
       </div>
 
       {/* Success Notification */}
@@ -61,7 +60,7 @@ export default function RegisterPage() {
           </div>
           <Link
             href="/login"
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#8B7CFF] text-white text-sm font-medium hover:bg-[#9E91FF] transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] text-white text-sm font-medium hover:from-[#8B5CF6] hover:to-[#22D3EE] transition-all"
           >
             <span>Proceed to Sign In</span>
             <ArrowRight className="w-4 h-4" />
@@ -92,7 +91,7 @@ export default function RegisterPage() {
                 type="text"
                 required
                 placeholder="Jane Doe"
-                className="w-full px-3.5 py-2.5 bg-[#141B2D]/80 border border-white/10 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#8B7CFF] focus:ring-1 focus:ring-[#8B7CFF] transition-colors"
+                className="w-full px-3.5 py-2.5 bg-[#162032]/90 border border-white/10 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] transition-colors"
               />
             </div>
 
@@ -107,7 +106,7 @@ export default function RegisterPage() {
                 autoComplete="email"
                 required
                 placeholder="jane@example.com"
-                className="w-full px-3.5 py-2.5 bg-[#141B2D]/80 border border-white/10 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#8B7CFF] focus:ring-1 focus:ring-[#8B7CFF] transition-colors"
+                className="w-full px-3.5 py-2.5 bg-[#162032]/90 border border-white/10 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] transition-colors"
               />
             </div>
 
@@ -122,13 +121,13 @@ export default function RegisterPage() {
                   type={showPassword ? 'text' : 'password'}
                   required
                   placeholder="Min. 8 chars (1 uppercase, 1 number)"
-                  className="w-full px-3.5 py-2.5 bg-[#141B2D]/80 border border-white/10 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#8B7CFF] focus:ring-1 focus:ring-[#8B7CFF] transition-colors pr-10"
+                  className="w-full px-3.5 py-2.5 bg-[#162032]/90 border border-white/10 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] transition-colors pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors cursor-pointer"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -145,14 +144,14 @@ export default function RegisterPage() {
                 type="password"
                 required
                 placeholder="Repeat password"
-                className="w-full px-3.5 py-2.5 bg-[#141B2D]/80 border border-white/10 rounded-lg text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#8B7CFF] focus:ring-1 focus:ring-[#8B7CFF] transition-colors"
+                className="w-full px-3.5 py-2.5 bg-[#162032]/90 border border-white/10 rounded-xl text-white placeholder-slate-500 text-sm focus:outline-none focus:border-[#7C3AED] focus:ring-1 focus:ring-[#7C3AED] transition-colors"
               />
             </div>
 
             <button
               type="submit"
               disabled={isPending}
-              className="w-full mt-2 py-2.5 px-4 bg-gradient-to-r from-[#8B7CFF] to-[#6E5DE7] hover:from-[#9E91FF] hover:to-[#8B7CFF] text-white font-medium text-sm rounded-lg shadow-lg shadow-[#8B7CFF]/20 flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full mt-2 py-2.5 px-4 bg-gradient-to-r from-[#7C3AED] to-[#06B6D4] hover:from-[#8B5CF6] hover:to-[#22D3EE] text-white font-medium text-sm rounded-xl shadow-lg shadow-[#7C3AED]/25 flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             >
               {isPending ? (
                 <>
@@ -171,7 +170,7 @@ export default function RegisterPage() {
           {/* Footer Navigation */}
           <div className="mt-6 text-center text-xs text-slate-400">
             <span>Already have an account? </span>
-            <Link href="/login" className="text-[#8B7CFF] hover:text-[#9E91FF] font-medium transition-colors underline-offset-4 hover:underline">
+            <Link href="/login" className="text-[#06B6D4] hover:text-[#22D3EE] font-medium transition-colors underline-offset-4 hover:underline">
               Sign in
             </Link>
           </div>

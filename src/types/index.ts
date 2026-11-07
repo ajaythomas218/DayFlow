@@ -23,6 +23,7 @@ export type TrainingTemplate = Tables<'training_templates'>
 export type TrainingTemplateTask = Tables<'training_template_tasks'>
 export type TrainingSession = Tables<'training_sessions'>
 export type StudentReview = Tables<'student_reviews'>
+export type WeeklyReview = Tables<'weekly_reviews'>
 export type ActivityLog = Tables<'activity_logs'>
 export type BackgroundJob = Tables<'background_jobs'>
 
