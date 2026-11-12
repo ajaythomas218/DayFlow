@@ -72,7 +72,7 @@ DayFlow implements an RFC 5545 compliant recurrence engine in `src/lib/recurrenc
 * Retries transient errors using exponential backoff (1 min, 5 min, 15 min up to `max_attempts = 3`).
 
 ### Scheduler Setup
-* **Vercel Cron**: Configured in `vercel.json` (`schedule: "* * * * *"`). Automatically passes `CRON_SECRET`.
+* **Vercel Cron**: Configured in `vercel.json` (`schedule: "0 0 * * *"` for Hobby tier compliance). Automatically passes `CRON_SECRET`. Pro tiers or external pingers can invoke minute-by-minute.
 * **External Cron (GitHub Actions / Cloudflare Workers / cron-job.org)**:
   ```bash
   curl -X POST "https://your-domain.com/api/cron/reminders" \
